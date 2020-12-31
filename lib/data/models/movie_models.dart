@@ -36,7 +36,7 @@ class MovieModel extends MovieEnity {
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
-      voteAverage: json['vote_average'],
+      voteAverage: json['vote_average']?.toDouble() ?? 0.0,
       overview: json['overview'],
       releaseDate: json['release_date'],
       title: json['title'],
@@ -49,7 +49,7 @@ class MovieModel extends MovieEnity {
       posterPath: json['poster_path'],
       id: json['id'],
       video: json['video'],
-      popularity: json['popularity'],
+      popularity: json['popularity']?.toDouble() ?? 0.0,
       mediaType: json['media_type'],
     );
   }
