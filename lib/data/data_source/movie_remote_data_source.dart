@@ -13,11 +13,12 @@ class MovieRemoeDataSourceImpl extends MovieRemoteDataSource {
   final Client _client;
   MovieRemoeDataSourceImpl(this._client);
   @override
+  // ignore: missing_return
   Future<List<MovieModel>> getTrending() async {
     final response = await _client.get(
       '${ApiConstants.BASE_IMAGE_URL}trending/movie/day?api_key=${ApiConstants.API_KEY}',
       headers: {
-        'Content-Type': 'application/jason',
+        'Content-Type': 'application/json',
       },
     );
     if (response.statusCode == 200) {

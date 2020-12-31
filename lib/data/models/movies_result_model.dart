@@ -1,10 +1,7 @@
 import 'movie_models.dart';
 
 class MoviesResultModel {
-  int page;
   List<MovieModel> movies;
-  int totalPages;
-  int totalResults;
 
   MoviesResultModel({this.movies});
 
@@ -12,7 +9,7 @@ class MoviesResultModel {
     if (json['results'] != null) {
       movies = new List<MovieModel>();
       json['results'].forEach((v) {
-        movies.add(new MovieModel.fromJson(v));
+        movies.add(MovieModel.fromJson(v));
       });
     }
   }
