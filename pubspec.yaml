@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   http: ^0.12.1
   dartz: ^0.9.1
+  get_it: ^4.0.2
   equatable: ^1.2.0
 
 dev_dependencies:
