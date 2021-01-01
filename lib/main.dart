@@ -1,22 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:movie_with_api/data/core/api_client.dart';
-import 'package:movie_with_api/data/data_source/movie_remote_data_source.dart';
-import 'package:movie_with_api/data/repositories/movie_repository_impl.dart';
 import 'package:movie_with_api/domain/entities/movie.entity.dart';
 import 'package:movie_with_api/domain/entities/no_params.dart';
-import 'package:movie_with_api/domain/repositoories/movie_repository.dart';
 import 'package:movie_with_api/domain/usecases/get_trending.dart';
 
 import 'domain/entities/apperror_handaling.dart';
 
-void main() async {
-  ApiClient apiClient = ApiClient(Client());
-  MovieRemoteDataSource dataSource = MovieRemoeDataSourceImpl(apiClient);
-  MovieRepository movieRepository = MovieRepositoryImpl(dataSource);
+import 'package:pedantic/pedantic.dart';
+import 'di/get_it.dart' as getIt;
 
-  GetTrending getTrending = GetTrending(movieRepository);
+void main() async {
+  unawaited(getIt.init());
+
+  GetTrending getTrending = getIt.getItinstance<GetTrending>();
   final Either<AppError, List<MovieEnity>> eitherResponse =
       await getTrending(NoParams());
   eitherResponse.fold(
@@ -41,25 +37,42 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Container(
-        child: Row(
-          children: [
-            Container(
-              child: RichText(
-                text: TextSpan(
-                  text: 'Hello ',
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'bold',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: ' world!'),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+      home: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 200,
+            color: Colors.white,
+            child: Row(
+              children: [
+                Container(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Hello  ',
+                      style: TextStyle(color: Colors.blue),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'bold',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '     world!',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
