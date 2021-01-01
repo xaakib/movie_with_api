@@ -4,12 +4,15 @@ import 'package:movie_with_api/data/core/api_client.dart';
 import 'package:movie_with_api/data/data_source/movie_remote_data_source.dart';
 import 'package:movie_with_api/data/repositories/movie_repository_impl.dart';
 import 'package:movie_with_api/domain/repositoories/movie_repository.dart';
+import 'package:movie_with_api/domain/usecases/get_trending.dart';
 
 void main() {
   ApiClient apiClient = ApiClient(Client());
   MovieRemoteDataSource dataSource = MovieRemoeDataSourceImpl(apiClient);
   MovieRepository movieRepository = MovieRepositoryImpl(dataSource);
-  movieRepository.getTrending();
+
+  GetTrending getTrending = GetTrending(movieRepository);
+  getTrending();
   runApp(MyApp());
 }
 
