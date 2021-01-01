@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:movie_with_api/data/core/api_client.dart';
 import 'package:movie_with_api/data/data_source/movie_remote_data_source.dart';
+import 'package:movie_with_api/data/repositories/movie_repository_impl.dart';
+import 'package:movie_with_api/domain/repositoories/movie_repository.dart';
 
 void main() {
-  Client apiClient = Client();
+  ApiClient apiClient = ApiClient(Client());
   MovieRemoteDataSource dataSource = MovieRemoeDataSourceImpl(apiClient);
-  dataSource.getTrending();
+  MovieRepository movieRepository = MovieRepositoryImpl(dataSource);
+  movieRepository.getTrending();
   runApp(MyApp());
 }
 
